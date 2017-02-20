@@ -1,9 +1,11 @@
 import pcapy, pickle, re
 from impacket.ImpactDecoder import *
 
-print pcapy.findalldevs()
-cap = pcapy.open_live("en1", 1024*512, False, 100)
-cap.setfilter('tcp')
+def start(cap):
+        cap = pcapy.open_live(self.interface, 1600, 0, 100)
+##         self.p.setnonblock(1)
+        if cap.filter:
+            cap.setfilter(cap.filter)
 
 hosts = {}
 try:
@@ -19,8 +21,9 @@ def analyse_packet(header, data):
 	tcp = ip.child()
 	str = tcp.get_data_as_string()
 	hdr = re.findall(r"(?P<name>.*?): (?P<value>.*?)\r\n", str)
-	
+
 	headers = {}
+
 	for (title, content) in hdr:
 		headers[title] = content
 	
@@ -39,4 +42,4 @@ def analyse_packet(header, data):
 			pickle.dump(hosts, out)				
 			out.close()		
 			
-cap.loop(-1, analyse_packet)
+start.loop(-1, analyse_packet)
