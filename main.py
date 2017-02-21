@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+
 import logging
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 import threading
 import random
-from scapy.all import IP, TCP, RandIP, send, conf, get_if_list
+from scapy.all import *
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)-15s [%(threadName)s] %(message)s')
 
 class sendSYN(threading.Thread):
